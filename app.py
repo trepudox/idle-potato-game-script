@@ -1,3 +1,6 @@
+import prestige
+import generators
+import sell_potatoes
 from constants import *
 import time
 import sys
@@ -6,36 +9,11 @@ from trepudox_py_utils.logging import configure_logger
 import vision
 import bot_actions
 from config import RESOURCES_REGIONS
+from utils import extract_number
+
 
 configure_logger()
 logger = logging.getLogger(__name__)
-
-def extract_number(text):
-    """Função utilitária para limpar o texto lido pelo OCR e converter para inteiro com multiplicadores"""
-    text = text.replace(" ", "").strip()
-    if not text:
-        return -1
-        
-    for suffix, multiplier in MULTIPLIERS.items():
-        if text.lower().endswith(suffix.lower()):
-            number_part = text[:-len(suffix)]
-            number_part = number_part.replace(',', '.')
-            # Remove qualquer caracter inválido da parte numérica (ex: erros pequenos do OCR)
-            clean_num = ''.join(c for c in number_part if c.isdigit() or c == '.')
-            if clean_num:
-                try:
-                    return int(float(clean_num) * multiplier)
-                except ValueError as e:
-                    logger.warning(f"Erro ao converter número: {e}")
-                    pass
-            break
-            
-    # Fallback se não tiver sufixo
-    clean_text = ''.join(filter(str.isdigit, text))
-    if clean_text:
-        return int(clean_text)
-
-    return -1
 
 
 def check_resources():
@@ -80,21 +58,26 @@ def main_loop():
     
     try:
         while True:
-            # 1. Checa o estado (lê dinheiro/batatas)
+            # 1. Checa o estado (lê dinheiro/batatas/pp)
+            bot_actions.press_key(TAB_BINDINGS[HOME])
             resources_dict = check_resources()
-            
-            # 2. Exemplo de lógica (O usuário deve adaptar para as regras do seu jogo)
-            # if money > 1000:
-            #     logger.info("Temos bastante dinheiro, tentando comprar upgrade!")
-            #     if bot_actions.click_template("btn_upgrade.png"):
-            #         logger.info("Upgrade comprado.")
-            
-            # 3. Exemplo de checar aba de prestígio
-            # if potatoes > 5000:
-            #     logger.info("Hora do prestígio!")
-            #     if bot_actions.click_template("tab_prestige.png"):
-            #         bot_actions.click_template("btn_do_prestige.png")
-            
+
+            # 2. Tenta vender batatas
+            bot_actions.press_key(TAB_BINDINGS[SELL_POTATOES])
+            sell_potatoes.try_sell_potatoes()
+
+            # 3. Tenta comprar geradores
+            bot_actions.press_key(TAB_BINDINGS[GENERATORS])
+            generators.try_buy_generator()
+
+            # 4. Checa o estado (lê dinheiro/batatas/pp)
+            bot_actions.press_key(TAB_BINDINGS[HOME])
+            resources_dict = check_resources()
+
+            # 5. Tenta fazer prestige
+            bot_actions.press_key(TAB_BINDINGS[PRESTIGE])
+            prestige.try_prestige()
+
             # Pausa para não sobrecarregar a CPU
             logger.info("Aguardando próximo ciclo...")
             logger.info("-----------------------------------------")

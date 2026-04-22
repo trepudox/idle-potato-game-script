@@ -1,4 +1,3 @@
-from constants import SELL_POTATOES
 from constants import *
 import os
 
@@ -13,7 +12,7 @@ if not os.path.exists(TEMPLATES_DIR):
 # Configurações de Visão Computacional (OpenCV)
 OPENCV_CONFIDENCE_THRESHOLD = 0.8  # Nível de confiança padrão (0 a 1) para encontrar imagens
 
-DEFAULT_CLICK_DELAY = 0.5         # Tempo de espera padrão entre ações
+DEFAULT_ACTION_DELAY = 1.5         # Tempo de espera padrão entre ações
 DEFAULT_CLICK_DURATION = 0.1        # Duração do "click" (mouse down/up)
 
 # Bounding Boxes para OCR
@@ -27,5 +26,6 @@ RESOURCES_REGIONS = {
 }
 
 SELL_POTATOES_REGIONS = {
-
+    POTATOES: {"top": 363, "left": 358, "width": 120, "height": 18},
+    GOLDEN_POTATOES: {"top": 453, "left": 358, "width": 120, "height": 18},
 }
