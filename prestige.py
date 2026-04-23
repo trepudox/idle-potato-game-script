@@ -6,10 +6,12 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def try_prestige(potential_pp):
+def try_prestige(potential_pp_magic_potatoes, potential_pp_no_magic_potatoes):
     """
     Verifica se a quantidade de PP potencial atinge o limite configurado e realiza o prestígio.
     """
+    potential_pp = potential_pp_magic_potatoes if potential_pp_magic_potatoes > 0 else potential_pp_no_magic_potatoes
+
     if potential_pp >= PRESTIGE_THRESHOLD:
         logger.info(f"Opa! PP acumulado ({potential_pp}) atingiu o limite de {PRESTIGE_THRESHOLD}.")
         logger.info(f"Realizando prestígio com f{potential_pp} PPs")

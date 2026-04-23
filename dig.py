@@ -13,7 +13,7 @@ def try_dig():
         logger.info("Aba de Dig aberta. Clicando no Autodig...")
         
         # 2. Clica no botão para iniciar a escavação
-        clicked_dig = bot_actions.click_template('dig/dig-button.png', delay=0.5)
+        clicked_dig = bot_actions.click_template('dig/dig-button.png', threshold=0.95, delay=0.5)
         
         if clicked_dig:
             logger.info("Autodig ativado com sucesso!")

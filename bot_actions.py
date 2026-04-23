@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 
 # Configurações globais do PyAutoGUI
 pyautogui.PAUSE = 0.25  # Pequena pausa após cada ação do pyautogui
-pyautogui.FAILSAFE = True  # Move o mouse para o canto da tela para abortar
+pyautogui.FAILSAFE = False  # Desativado: o FailSafe antigo atrapalha o multi-instâncias. Usaremos a tecla ESC.
 
 
 def press_key(key, delay=DEFAULT_ACTION_DELAY):
@@ -81,3 +81,44 @@ def scroll_up(clicks=500, delay=0.375):
     # cliques positivos rolam pra cima
     ctypes.windll.user32.mouse_event(0x0800, 0, 0, clicks, 0)
     time.sleep(delay)
+
+
+def switch_instance():
+    """
+    Alterna para a instância mais antiga do jogo aberta usando Windows + Tab.
+    O Windows + Tab organiza as janelas da mais recente (topo esquerda) para a mais antiga (baixo direita).
+    Ao clicar na ÚLTIMA janela encontrada, garantimos o ciclo contínuo perfeito entre 3+ instâncias.
+    """
+    logger.info("Buscando próxima instância do jogo...")
+    
+    # Aciona a visão de tarefas do Windows
+    pyautogui.hotkey('win', 'tab')
+    time.sleep(1.5)  # Tempo para a animação do Windows terminar e os ícones renderizarem
+    
+    # Encontra as miniaturas das janelas do jogo
+    # Threshold um pouco menor pois miniaturas podem perder resolução
+    locations = vision.find_all_templates('windows-tab/roblox-window-name.png', threshold=0.7)
+    
+    if locations:
+        logger.info(f"Encontradas {len(locations)} janelas do jogo abertas.")
+        
+        # Ordena as coordenadas:
+        # Primeiro por Y (linha, de cima pra baixo). 
+        # Para coordenadas na mesma linha (diferença de Y pequena), ordena por X (esquerda pra direita).
+        # A matemática: agrupamos linhas num intervalo de ~50 pixels de tolerância
+        locations.sort(key=lambda loc: (loc[1] // 50, loc[0]))
+        
+        # A janela menos usada (que deve ser jogada agora) é sempre a ÚLTIMA da lista
+        target_x, target_y = locations[-1]
+        
+        logger.info("Alternando para a janela mais inativa...")
+        # Clica para focar
+        pyautogui.moveTo(int(target_x), int(target_y), duration=0.2)
+        pydirectinput.click()
+        
+        # Tempo pro jogo voltar a focar e a tela do Windows sumir
+        time.sleep(2.0)
+    else:
+        logger.warning("Não encontrou outras janelas do jogo no Windows+Tab. Apertando Esc para sair do Tab.")
+        pyautogui.press('esc')
+        time.sleep(1.0)

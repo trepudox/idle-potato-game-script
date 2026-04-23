@@ -28,6 +28,7 @@ def check_resources():
     magic_potatoes_text = vision.read_text_from_region(RESOURCES_REGIONS[MAGIC_POTATOES])
     cash_text = vision.read_text_from_region(RESOURCES_REGIONS[CASH])[1:]
     potential_pp_text = vision.read_text_from_region(RESOURCES_REGIONS[POTENTIAL_PP], preprocess=True)
+    potential_pp_no_magic_potatoes_text = vision.read_text_from_region(RESOURCES_REGIONS["POTENTIAL_PP_NO_MAGIC_POTATOES"], preprocess=True)
 
     # logger.info(f"cash_text: {cash_text}")
     # logger.info(f"potatoes_text: {potatoes_text}")
@@ -40,12 +41,14 @@ def check_resources():
     magic_potatoes = extract_number(magic_potatoes_text)
     cash = extract_number(cash_text)
     pontential_pp = extract_number(potential_pp_text)
+    pontential_pp_no_magic_potatoes = extract_number(potential_pp_no_magic_potatoes_text)
 
     # logger.info(f"cash atual: {cash}")
     # logger.info(f"potatoes atuais: {potatoes}")
     # logger.info(f"golden_potatoes atuais: {golden_potatoes}")
     # logger.info(f"magic_potatoes atuais: {magic_potatoes}")
     logger.info(f"pontential_pp atual: {pontential_pp}")
+    logger.info(f"pontential_pp_no_magic_potatoes atual: {pontential_pp_no_magic_potatoes}")
     time.sleep(DEFAULT_ACTION_DELAY)
     
     return {
@@ -53,7 +56,8 @@ def check_resources():
         POTATOES: potatoes,
         GOLDEN_POTATOES: golden_potatoes,
         MAGIC_POTATOES: magic_potatoes,
-        POTENTIAL_PP: pontential_pp
+        POTENTIAL_PP: pontential_pp,
+        "POTENTIAL_PP_NO_MAGIC_POTATOES": pontential_pp_no_magic_potatoes
     }
 
 def main_loop():
@@ -61,7 +65,14 @@ def main_loop():
     logger.info("Pressione Ctrl+C no terminal ou jogue o mouse para o canto da tela (FailSafe) para parar.")
     
     try:
+        import ctypes
         while True:
+            # --- KILL SWITCH DE EMERGÊNCIA (Segurar ESC) ---
+            # 0x1B é o código da tecla ESC no Windows. 0x8000 verifica se a tecla está sendo segurada.
+            if ctypes.windll.user32.GetAsyncKeyState(0x1B) & 0x8000:
+                logger.warning("Botão ESC segurado! Abortando o bot de emergência.")
+                break
+
             # 1. Tenta vender batatas
             bot_actions.press_key(TAB_BINDINGS[SELL_POTATOES])
             potatoes_sold, golden_potatoes_sold = sell_potatoes.try_sell_potatoes()
@@ -72,7 +83,7 @@ def main_loop():
 
             # 3. Tenta fazer prestige
             bot_actions.press_key(TAB_BINDINGS[PRESTIGE])
-            prestiged = prestige.try_prestige(resources_dict[POTENTIAL_PP])
+            prestiged = prestige.try_prestige(resources_dict[POTENTIAL_PP], resources_dict["POTENTIAL_PP_NO_MAGIC_POTATOES"])
             if prestiged:
                 continue
 
@@ -89,12 +100,12 @@ def main_loop():
 
             # 6. Tenta escavar antes do sleep
             # Nao tem binding!!! o dig.py clica no botao pra começar a escavar
-            dig.try_dig()
+            # dig.try_dig()
 
-            # Pausa para não sobrecarregar a CPU
-            logger.info("Aguardando próximo ciclo...")
+            # 7. Alterna para a próxima conta (Múltiplas instâncias)
+            logger.info("Ciclo concluído nesta conta. Alternando para a próxima...")
             logger.info("-----------------------------------------")
-            time.sleep(4)
+            bot_actions.switch_instance()
             
     except KeyboardInterrupt:
         logger.info("Bot interrompido pelo usuário (Ctrl+C). Encerrando...")

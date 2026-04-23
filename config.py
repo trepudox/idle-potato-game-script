@@ -23,6 +23,7 @@ RESOURCES_REGIONS = {
     MAGIC_POTATOES: {"top": 170, "left": 1800, "width": 98, "height": 18},
     CASH: {"top": 196, "left": 1800, "width": 98, "height": 18},
     POTENTIAL_PP: {"top": 493, "left": 1835, "width": 60, "height": 17},
+    "POTENTIAL_PP_NO_MAGIC_POTATOES": {"top": 418, "left": 1835, "width": 60, "height": 17},
 }
 
 SELL_POTATOES_REGIONS = {
@@ -31,5 +32,5 @@ SELL_POTATOES_REGIONS = {
 }
 
 # Configurações de Prestígio
-PRESTIGE_THRESHOLD = 70 # Quantidade de PP necessária para realizar o prestígio
+PRESTIGE_THRESHOLD = 30 # Quantidade de PP necessária para realizar o prestígio
 

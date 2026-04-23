@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 # Controle de tempo (cooldown) da loja
 last_shop_visit = 0
 # SHOP_COOLDOWN_SECONDS = 240  # 4 minutos
-SHOP_COOLDOWN_SECONDS = 45  # 4 minutos
+SHOP_COOLDOWN_SECONDS = 5  # 4 minutos
 
 # Templates dos botões de compra disponíveis
 SHOP_TEMPLATES = [
