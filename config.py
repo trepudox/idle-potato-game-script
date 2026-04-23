@@ -1,4 +1,4 @@
-from constants import *
+from game_constants import *
 import os
 
 # Caminhos de Diretórios
@@ -12,7 +12,7 @@ if not os.path.exists(TEMPLATES_DIR):
 # Configurações de Visão Computacional (OpenCV)
 OPENCV_CONFIDENCE_THRESHOLD = 0.8  # Nível de confiança padrão (0 a 1) para encontrar imagens
 
-DEFAULT_ACTION_DELAY = 1.5         # Tempo de espera padrão entre ações
+DEFAULT_ACTION_DELAY = 0.5         # Tempo de espera padrão entre ações
 DEFAULT_CLICK_DURATION = 0.1        # Duração do "click" (mouse down/up)
 
 # Bounding Boxes para OCR
@@ -22,10 +22,14 @@ RESOURCES_REGIONS = {
     GOLDEN_POTATOES: {"top": 144, "left": 1800, "width": 98, "height": 18},
     MAGIC_POTATOES: {"top": 170, "left": 1800, "width": 98, "height": 18},
     CASH: {"top": 196, "left": 1800, "width": 98, "height": 18},
-    POTENTIAL_PP: {"top": 493, "left": 1800, "width": 98, "height": 18},
+    POTENTIAL_PP: {"top": 493, "left": 1835, "width": 60, "height": 17},
 }
 
 SELL_POTATOES_REGIONS = {
     POTATOES: {"top": 363, "left": 358, "width": 120, "height": 18},
     GOLDEN_POTATOES: {"top": 453, "left": 358, "width": 120, "height": 18},
 }
+
+# Configurações de Prestígio
+PRESTIGE_THRESHOLD = 70 # Quantidade de PP necessária para realizar o prestígio
+

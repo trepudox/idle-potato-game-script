@@ -1,7 +1,7 @@
 from config import DEFAULT_ACTION_DELAY
 import time
 import bot_actions
-from constants import *
+from game_constants import *
 import vision
 from config import SELL_POTATOES_REGIONS
 from utils import extract_number
@@ -11,12 +11,15 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-POTATOES_PRICE_THRESHOLD = 1
-# POTATOES_PRICE_THRESHOLD = 100
-GOLDEN_POTATOES_PRICE_THRESHOLD = 6
-# GOLDEN_POTATOES_PRICE_THRESHOLD = 6000
+# Preços sem ponto flutante / 100 = 1.00
+POTATOES_PRICE_THRESHOLD = 100
+GOLDEN_POTATOES_PRICE_THRESHOLD = 6000
+
 
 def try_sell_potatoes():
+    potatoes_sold = False
+    golden_potatoes_sold = False
+
     potatoes_price_text = vision.read_text_from_region(SELL_POTATOES_REGIONS[POTATOES])[1:]
     golden_potatoes_price_text = vision.read_text_from_region(SELL_POTATOES_REGIONS[GOLDEN_POTATOES])[1:]
 
@@ -32,9 +35,12 @@ def try_sell_potatoes():
     if potatoes_price >= POTATOES_PRICE_THRESHOLD:
         logger.info("Vendendo batatas...")
         bot_actions.click_template('sell-potatoes/sell-all.png')
+        potatoes_sold = True
         
     if golden_potatoes_price >= GOLDEN_POTATOES_PRICE_THRESHOLD:
         logger.info("Vendendo batatas douradas...")
         bot_actions.click_template('sell-potatoes/golden-potatoes.png')
-        time.sleep(DEFAULT_ACTION_DELAY)
         bot_actions.click_template('sell-potatoes/sell-all.png')
+        golden_potatoes_sold = True
+
+    return potatoes_sold, golden_potatoes_sold

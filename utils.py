@@ -1,4 +1,4 @@
-from constants import MULTIPLIERS
+from game_constants import MULTIPLIERS
 import logging
 
 logger = logging.getLogger(__name__)
