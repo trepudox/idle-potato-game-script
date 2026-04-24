@@ -8,7 +8,7 @@ import cv2
 import mss
 import numpy as np
 
-region = RESOURCES_REGIONS[POTENTIAL_PP]
+region = RESOURCES_REGIONS["POTENTIAL_PP_NO_MAGIC_POTATOES"]
 print(f"Lendo região do POTENTIAL_PP: {region}")
 
 with mss.mss() as sct:

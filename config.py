@@ -24,6 +24,8 @@ RESOURCES_REGIONS = {
     CASH: {"top": 196, "left": 1800, "width": 98, "height": 18},
     CURRENT_PP: {"top": 467, "left": 1835, "width": 60, "height": 18},
     POTENTIAL_PP: {"top": 493, "left": 1835, "width": 60, "height": 18},
+    "CURRENT_PP_NO_MAGIC_POTATOES": {"top": 389, "left": 1835, "width": 60, "height": 18},
+    "POTENTIAL_PP_NO_MAGIC_POTATOES": {"top": 415, "left": 1835, "width": 60, "height": 18},
 }
 
 SELL_POTATOES_REGIONS = {

@@ -37,20 +37,24 @@ def check_resources():
     magic_potatoes_text = vision.read_text_from_region(RESOURCES_REGIONS[MAGIC_POTATOES])
     cash_text = vision.read_text_from_region(RESOURCES_REGIONS[CASH])[1:]
     current_pp_text = vision.read_text_from_region(RESOURCES_REGIONS[CURRENT_PP], preprocess=True)
+    current_pp_no_magic_potatoes_text = vision.read_text_from_region(RESOURCES_REGIONS["CURRENT_PP_NO_MAGIC_POTATOES"], preprocess=True)
     potential_pp_text = vision.read_text_from_region(RESOURCES_REGIONS[POTENTIAL_PP], preprocess=True)
+    potential_pp_no_magic_potatoes_text = vision.read_text_from_region(RESOURCES_REGIONS["POTENTIAL_PP_NO_MAGIC_POTATOES"], preprocess=True)
 
-    logger.info(f"current_pp_text: {current_pp_text}")
-    logger.info(f"pontential_pp_text: {potential_pp_text}")
+    logger.info(f"current_pp_no_magic_potatoes_text: {current_pp_no_magic_potatoes_text}")
+    logger.info(f"potential_pp_no_magic_potatoes_text: {potential_pp_no_magic_potatoes_text}")
 
     potatoes = extract_number(potatoes_text)
     golden_potatoes = extract_number(golden_potatoes_text)
     magic_potatoes = extract_number(magic_potatoes_text)
     cash = extract_number(cash_text)
     current_pp = extract_number(current_pp_text)
+    current_pp_no_magic_potatoes = extract_number(current_pp_no_magic_potatoes_text)
     potential_pp = extract_number(potential_pp_text)
+    potential_pp_no_magic_potatoes = extract_number(potential_pp_no_magic_potatoes_text)
 
-    logger.info(f"current_pp atual: {current_pp}")
-    logger.info(f"pontential_pp atual: {potential_pp}")
+    logger.info(f"current_pp_no_magic_potatoes atual: {current_pp_no_magic_potatoes}")
+    logger.info(f"pontential_pp no magic potatoes atual: {potential_pp_no_magic_potatoes}")
     time.sleep(DEFAULT_ACTION_DELAY)
 
     return {
@@ -58,8 +62,8 @@ def check_resources():
         POTATOES: potatoes,
         GOLDEN_POTATOES: golden_potatoes,
         MAGIC_POTATOES: magic_potatoes,
-        CURRENT_PP: current_pp,
-        POTENTIAL_PP: potential_pp,
+        CURRENT_PP: current_pp if current_pp >= 0 else current_pp_no_magic_potatoes,
+        POTENTIAL_PP: potential_pp if potential_pp >= 0 else potential_pp_no_magic_potatoes,
     }
 
 def main_loop():

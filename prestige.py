@@ -11,7 +11,7 @@ def try_prestige(potential_pp, try_prestige_flag, prestige_threshold):
     if potential_pp >= prestige_threshold and try_prestige_flag:
         bot_actions.press_key(TAB_BINDINGS[PRESTIGE])
 
-        logger.info(f"Opa! PP acumulado ({potential_pp}) atingiu o limite de {prestige_threshold}.")
+        logger.info(f"Opa! Potential PP acumulado ({potential_pp}) atingiu o limite de {prestige_threshold}.")
         logger.info(f"Realizando prestígio com f{potential_pp} PPs")
         
         # Clica no botão de prestígio inicial
@@ -27,7 +27,7 @@ def try_prestige(potential_pp, try_prestige_flag, prestige_threshold):
             logger.warning("Botão de prestígio não encontrado na tela, mesmo com PP suficiente.")
             return False
     else:
-        logger.info(f"PP atual: {potential_pp}. Faltam {prestige_threshold - potential_pp} para o prestígio.")
+        logger.info(f"Potential PP atual: {potential_pp}. Faltam {prestige_threshold - potential_pp} para o prestígio.")
         return False
 
 
