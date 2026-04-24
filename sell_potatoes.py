@@ -1,7 +1,6 @@
-from config import DEFAULT_ACTION_DELAY
-import time
-import bot_actions
 from game_constants import *
+from config import DEFAULT_ACTION_DELAY
+import bot_actions
 import vision
 from config import SELL_POTATOES_REGIONS
 from utils import extract_number
@@ -17,6 +16,8 @@ GOLDEN_POTATOES_PRICE_THRESHOLD = 6000
 
 
 def try_sell_potatoes():
+    bot_actions.press_key(TAB_BINDINGS[SELL_POTATOES])
+
     potatoes_sold = False
     golden_potatoes_sold = False
 

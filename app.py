@@ -1,7 +1,10 @@
+from game_constants import BLESSING_OF_ABUNDANCE
+import ascension
 import dig
 import shop
 from config import DEFAULT_ACTION_DELAY
 import prestige
+import ascension
 import generators
 import sell_potatoes
 from game_constants import *
@@ -19,6 +22,12 @@ configure_logger()
 logger = logging.getLogger(__name__)
 
 
+PRESTIGE_THRESHOLD = 30
+TRY_PRESTIGE = True
+TRY_ASCENSION = True
+ASCENSION_BLESSING = BLESSING_OF_ABUNDANCE
+
+
 def check_resources():
     """Lê os valores principais da tela."""
     logger.info("Checando recursos atuais")
@@ -27,28 +36,21 @@ def check_resources():
     golden_potatoes_text = vision.read_text_from_region(RESOURCES_REGIONS[GOLDEN_POTATOES])
     magic_potatoes_text = vision.read_text_from_region(RESOURCES_REGIONS[MAGIC_POTATOES])
     cash_text = vision.read_text_from_region(RESOURCES_REGIONS[CASH])[1:]
+    current_pp_text = vision.read_text_from_region(RESOURCES_REGIONS[CURRENT_PP], preprocess=True)
     potential_pp_text = vision.read_text_from_region(RESOURCES_REGIONS[POTENTIAL_PP], preprocess=True)
-    potential_pp_no_magic_potatoes_text = vision.read_text_from_region(RESOURCES_REGIONS["POTENTIAL_PP_NO_MAGIC_POTATOES"], preprocess=True)
 
-    # logger.info(f"cash_text: {cash_text}")
-    # logger.info(f"potatoes_text: {potatoes_text}")
-    # logger.info(f"golden_potatoes_text: {golden_potatoes_text}")
-    # logger.info(f"magic_potatoes_text: {magic_potatoes_text}")
+    logger.info(f"current_pp_text: {current_pp_text}")
     logger.info(f"pontential_pp_text: {potential_pp_text}")
 
     potatoes = extract_number(potatoes_text)
     golden_potatoes = extract_number(golden_potatoes_text)
     magic_potatoes = extract_number(magic_potatoes_text)
     cash = extract_number(cash_text)
-    pontential_pp = extract_number(potential_pp_text)
-    pontential_pp_no_magic_potatoes = extract_number(potential_pp_no_magic_potatoes_text)
+    current_pp = extract_number(current_pp_text)
+    potential_pp = extract_number(potential_pp_text)
 
-    # logger.info(f"cash atual: {cash}")
-    # logger.info(f"potatoes atuais: {potatoes}")
-    # logger.info(f"golden_potatoes atuais: {golden_potatoes}")
-    # logger.info(f"magic_potatoes atuais: {magic_potatoes}")
-    logger.info(f"pontential_pp atual: {pontential_pp}")
-    logger.info(f"pontential_pp_no_magic_potatoes atual: {pontential_pp_no_magic_potatoes}")
+    logger.info(f"current_pp atual: {current_pp}")
+    logger.info(f"pontential_pp atual: {potential_pp}")
     time.sleep(DEFAULT_ACTION_DELAY)
     
     return {
@@ -56,8 +58,8 @@ def check_resources():
         POTATOES: potatoes,
         GOLDEN_POTATOES: golden_potatoes,
         MAGIC_POTATOES: magic_potatoes,
-        POTENTIAL_PP: pontential_pp,
-        "POTENTIAL_PP_NO_MAGIC_POTATOES": pontential_pp_no_magic_potatoes
+        CURRENT_PP: current_pp,
+        POTENTIAL_PP: potential_pp,
     }
 
 def main_loop():
@@ -74,33 +76,39 @@ def main_loop():
                 break
 
             # 1. Tenta vender batatas
-            bot_actions.press_key(TAB_BINDINGS[SELL_POTATOES])
             potatoes_sold, golden_potatoes_sold = sell_potatoes.try_sell_potatoes()
 
             # 2. Checa o estado (lê dinheiro/batatas/pp)
-            bot_actions.press_key(TAB_BINDINGS[HOME])
             resources_dict = check_resources()
 
-            # 3. Tenta fazer prestige
-            bot_actions.press_key(TAB_BINDINGS[PRESTIGE])
-            prestiged = prestige.try_prestige(resources_dict[POTENTIAL_PP], resources_dict["POTENTIAL_PP_NO_MAGIC_POTATOES"])
+            # 3. Busca o custo de ascensão para calcular o limite de gastos no Prestígio
+            ascension_cost = ascension.get_ascension_cost()
+
+            # 4. Tenta fazer prestige
+            prestiged = prestige.try_prestige(resources_dict[POTENTIAL_PP], TRY_PRESTIGE, PRESTIGE_THRESHOLD)
+            
+            # 5. Se prestiged, tenta fazer ascensão, se não, compra upgrades
             if prestiged:
-                continue
+                resources_dict = check_resources()
+                
+                if resources_dict[CURRENT_PP] >= ascension_cost:
+                    ascension.try_ascend(resources_dict[CURRENT_PP], TRY_ASCENSION, ASCENSION_BLESSING)
+                    continue
+
+                prestige.try_buy_prestige_upgrades(resources_dict[CURRENT_PP], ascension_cost)
 
             # 4. Tenta comprar geradores se vender batatas de ouro
             if golden_potatoes_sold:
-                bot_actions.press_key(TAB_BINDINGS[GENERATORS])
                 generators.try_buy_generator()
             else:
-                logger.info("Batatas de ouro nao foam vendidas, pulando compra de geradores")
+                logger.info("Batatas de ouro nao foram vendidas, pulando compra de geradores")
 
             # 5. Tenta comprar intes do shop
-            bot_actions.press_key(TAB_BINDINGS[SHOP])
             shop.try_buy_shop_items()
 
             # 6. Tenta escavar antes do sleep
             # Nao tem binding!!! o dig.py clica no botao pra começar a escavar
-            # dig.try_dig()
+            dig.try_dig()
 
             # 7. Alterna para a próxima conta (Múltiplas instâncias)
             logger.info("Ciclo concluído nesta conta. Alternando para a próxima...")

@@ -1,3 +1,4 @@
+from game_constants import *
 import time
 import logging
 import bot_actions
@@ -19,6 +20,7 @@ SHOP_TEMPLATES = [
 
 def try_buy_shop_items():
     global last_shop_visit
+    bot_actions.press_key(TAB_BINDINGS[SHOP])
     
     current_time = time.time()
     

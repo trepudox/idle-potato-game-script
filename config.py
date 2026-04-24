@@ -12,7 +12,7 @@ if not os.path.exists(TEMPLATES_DIR):
 # Configurações de Visão Computacional (OpenCV)
 OPENCV_CONFIDENCE_THRESHOLD = 0.8  # Nível de confiança padrão (0 a 1) para encontrar imagens
 
-DEFAULT_ACTION_DELAY = 0.5         # Tempo de espera padrão entre ações
+DEFAULT_ACTION_DELAY = 0.45         # Tempo de espera padrão entre ações
 DEFAULT_CLICK_DURATION = 0.1        # Duração do "click" (mouse down/up)
 
 # Bounding Boxes para OCR
@@ -22,8 +22,8 @@ RESOURCES_REGIONS = {
     GOLDEN_POTATOES: {"top": 144, "left": 1800, "width": 98, "height": 18},
     MAGIC_POTATOES: {"top": 170, "left": 1800, "width": 98, "height": 18},
     CASH: {"top": 196, "left": 1800, "width": 98, "height": 18},
-    POTENTIAL_PP: {"top": 493, "left": 1835, "width": 60, "height": 17},
-    "POTENTIAL_PP_NO_MAGIC_POTATOES": {"top": 418, "left": 1835, "width": 60, "height": 17},
+    CURRENT_PP: {"top": 467, "left": 1835, "width": 60, "height": 18},
+    POTENTIAL_PP: {"top": 493, "left": 1835, "width": 60, "height": 18},
 }
 
 SELL_POTATOES_REGIONS = {
@@ -31,6 +31,36 @@ SELL_POTATOES_REGIONS = {
     GOLDEN_POTATOES: {"top": 453, "left": 358, "width": 120, "height": 18},
 }
 
-# Configurações de Prestígio
-PRESTIGE_THRESHOLD = 30 # Quantidade de PP necessária para realizar o prestígio
+ASCENSION_REGIONS = {
+    ASCENSION_COST: {"top": 104, "left": 875, "width": 60, "height": 49},
+    BLESSING_OF_ABUNDANCE: {"top": 210, "left": 370, "width": 175, "height": 20},
+    BLESSING_OF_THE_PRESTIGE: {"top": 325, "left": 370, "width": 175, "height": 20},
+    BLESSING_OF_THE_THRIFTY: {"top": 438, "left": 370, "width": 175, "height": 20},
+    BLESSING_OF_THE_GOLDEN: {"top": 550, "left": 370, "width": 175, "height": 20},
+    BLESSING_OF_THE_COLLECTOR: {"top": 663, "left": 370, "width": 175, "height": 20},
+}
 
+# Configurações de Âncora Visual para a Fase 2 (Upgrades de Prestígio)
+# Como a tela 'scrolla', nós achamos a imagem do ícone e usamos os offsets (X, Y) para ler o custo e clicar em comprar!
+PRESTIGE_UPGRADES_ANCHORS = {
+    "Generator Bonus": {
+        "template": "prestige/generator-bonus-upgrade-icon.png",
+        # Onde a caixa do custo fica em relação ao ícone?
+        "cost_offset_x": 226,
+        "cost_offset_y": 5,
+        "cost_width": 125,
+        "cost_height": 15,
+        # Onde o botão de comprar fica em relação ao ícone?
+        "buy_offset_x": 1110,
+        "buy_offset_y": 0
+    },
+    "Prestige Mastery": {
+        "template": "prestige/prestige-mastery-upgrade-icon.png",
+        "cost_offset_x": 214,
+        "cost_offset_y": 7,
+        "cost_width": 125,
+        "cost_height": 15,
+        "buy_offset_x": 1110,
+        "buy_offset_y": 0
+    }
+}

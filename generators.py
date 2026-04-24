@@ -1,3 +1,4 @@
+from game_constants import *
 import vision
 import bot_actions
 import logging
@@ -8,6 +9,8 @@ logger = logging.getLogger(__name__)
 
 
 def try_buy_generator():
+    bot_actions.press_key(TAB_BINDINGS[GENERATORS])
+
     if vision.find_template('generators/slots-full.png', threshold=0.8):
         logger.info("Slots cheios! Não é possível comprar mais geradores.")
         return
