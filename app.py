@@ -22,7 +22,7 @@ configure_logger()
 logger = logging.getLogger(__name__)
 
 
-PRESTIGE_THRESHOLD = 30
+PRESTIGE_THRESHOLD = 35
 TRY_PRESTIGE = True
 TRY_ASCENSION = True
 ASCENSION_BLESSING = BLESSING_OF_ABUNDANCE
@@ -52,7 +52,7 @@ def check_resources():
     logger.info(f"current_pp atual: {current_pp}")
     logger.info(f"pontential_pp atual: {potential_pp}")
     time.sleep(DEFAULT_ACTION_DELAY)
-    
+
     return {
         CASH: cash,
         POTATOES: potatoes,

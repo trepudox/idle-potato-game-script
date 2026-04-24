@@ -43,7 +43,7 @@ ASCENSION_REGIONS = {
 # Configurações de Âncora Visual para a Fase 2 (Upgrades de Prestígio)
 # Como a tela 'scrolla', nós achamos a imagem do ícone e usamos os offsets (X, Y) para ler o custo e clicar em comprar!
 PRESTIGE_UPGRADES_ANCHORS = {
-    "Generator Bonus": {
+    GENERATOR_BONUS: {
         "template": "prestige/generator-bonus-upgrade-icon.png",
         # Onde a caixa do custo fica em relação ao ícone?
         "cost_offset_x": 226,
@@ -52,15 +52,27 @@ PRESTIGE_UPGRADES_ANCHORS = {
         "cost_height": 15,
         # Onde o botão de comprar fica em relação ao ícone?
         "buy_offset_x": 1110,
-        "buy_offset_y": 0
+        "buy_offset_y": 0,
+        "max_cost": 1000
     },
-    "Prestige Mastery": {
+    PRESTIGE_MASTERY: {
         "template": "prestige/prestige-mastery-upgrade-icon.png",
         "cost_offset_x": 214,
         "cost_offset_y": 7,
         "cost_width": 125,
         "cost_height": 15,
         "buy_offset_x": 1110,
-        "buy_offset_y": 0
+        "buy_offset_y": 0,
+        "max_cost": 200
+    },
+    BULK_DISCOUNTS: {
+        "template": "prestige/bulk-discounts-upgrade-icon.png",
+        "cost_offset_x": 260,
+        "cost_offset_y": 8,
+        "cost_width": 125,
+        "cost_height": 15,
+        "buy_offset_x": 1110,
+        "buy_offset_y": 0,
+        "max_cost": 80
     }
 }

@@ -6,6 +6,11 @@ MAGIC_POTATOES = "Magic Potatoes"
 CURRENT_PP = "Current PP"
 POTENTIAL_PP = "Potential PP"
 
+# Prestige Upgrades
+GENERATOR_BONUS = "Generator Bonus"
+PRESTIGE_MASTERY = "Prestige Mastery"
+BULK_DISCOUNTS = "Bulk Discounts"
+
 # Ascension
 ASCENSION_COST = "Ascension Cost"
 BLESSING_OF_ABUNDANCE = "Blessing of Abundance"

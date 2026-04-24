@@ -78,7 +78,11 @@ def try_buy_prestige_upgrades(current_pp, ascension_cost):
             if cost == -1:
                 logger.warning(f"Não foi possível ler o custo do {upgrade_name}. Parando de comprar este upgrade.")
                 break
-                
+
+            if cost > config_data["max_cost"]:
+                logger.info(f"O custo de {cost} é maior que o limite de {config_data["max_cost"]}. Parando de comprar este upgrade.")
+                break
+
             if cost < limite_gasto:
                 if current_pp >= cost:
                     logger.info(f"O custo de {cost} é menor que o limite ({limite_gasto}) e temos PP ({current_pp}). COMPRANDO!")
