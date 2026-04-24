@@ -1,6 +1,6 @@
-from game_constants import *
-import vision
-import bot_actions
+from src.game_constants import *
+from src import vision
+from src import bot_actions
 import logging
 import time
 

@@ -2,8 +2,8 @@ import pyautogui
 import pydirectinput
 import time
 import logging
-import vision
-from config import DEFAULT_ACTION_DELAY
+from src import vision
+from src.config import DEFAULT_ACTION_DELAY
 
 
 logger = logging.getLogger(__name__)

@@ -1,9 +1,9 @@
 
 
-import bot_actions
-import vision
-from config import RESOURCES_REGIONS
-from game_constants import POTENTIAL_PP
+from src import bot_actions
+from src import vision
+from src.config import RESOURCES_REGIONS
+from src.game_constants import POTENTIAL_PP
 import cv2
 import mss
 import numpy as np

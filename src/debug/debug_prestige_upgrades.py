@@ -3,11 +3,11 @@ import cv2
 import mss
 import numpy as np
 import pyautogui
-import bot_actions
-import vision
-from config import PRESTIGE_UPGRADES_ANCHORS
-from game_constants import TAB_BINDINGS, PRESTIGE
-from utils import extract_number
+from src import bot_actions
+from src import vision
+from src.config import PRESTIGE_UPGRADES_ANCHORS
+from src.game_constants import TAB_BINDINGS, PRESTIGE
+from src.utils import extract_number
 
 print("=== INICIANDO DEBUG DE UPGRADES DE PRESTÍGIO ===")
 print("Indo para a aba de Prestígio...")

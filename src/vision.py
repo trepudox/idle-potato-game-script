@@ -4,7 +4,7 @@ import mss
 import easyocr
 import os
 import logging
-from config import TEMPLATES_DIR, OPENCV_CONFIDENCE_THRESHOLD
+from src.config import TEMPLATES_DIR, OPENCV_CONFIDENCE_THRESHOLD
 
 
 logger = logging.getLogger(__name__)

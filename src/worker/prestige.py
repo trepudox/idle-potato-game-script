@@ -1,6 +1,6 @@
-from config import DEFAULT_ACTION_DELAY
-from game_constants import *
-import bot_actions
+from src.config import DEFAULT_ACTION_DELAY
+from src.game_constants import *
+from src import bot_actions
 import logging
 
 
@@ -42,9 +42,9 @@ def try_buy_prestige_upgrades(current_pp, ascension_cost):
     logger.info("Rolando a tela para procurar os upgrades...")
     bot_actions.scroll_down(clicks=-600, delay=1.0)
     
-    from config import PRESTIGE_UPGRADES_ANCHORS
-    import vision
-    from utils import extract_number
+    from src.config import PRESTIGE_UPGRADES_ANCHORS
+    from src import vision
+    from src.utils import extract_number
     import time
     
     for upgrade_name, config_data in PRESTIGE_UPGRADES_ANCHORS.items():

@@ -1,9 +1,9 @@
-from game_constants import *
-from config import DEFAULT_ACTION_DELAY
-import bot_actions
-import vision
-from config import SELL_POTATOES_REGIONS
-from utils import extract_number
+from src.game_constants import *
+from src.config import DEFAULT_ACTION_DELAY
+from src import bot_actions
+from src import vision
+from src.config import SELL_POTATOES_REGIONS
+from src.utils import extract_number
 import logging
 
 

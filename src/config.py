@@ -1,9 +1,9 @@
-from game_constants import *
+from src.game_constants import *
 import os
 
 # Caminhos de Diretórios
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-TEMPLATES_DIR = os.path.join(BASE_DIR, "templates")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TEMPLATES_DIR = os.path.join(BASE_DIR, "src", "templates")
 
 # Se a pasta não existir, cria
 if not os.path.exists(TEMPLATES_DIR):

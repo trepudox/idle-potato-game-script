@@ -1,8 +1,8 @@
-from game_constants import *
+from src.game_constants import *
 import time
 import logging
-import bot_actions
-import vision
+from src import bot_actions
+from src import vision
 
 logger = logging.getLogger(__name__)
 

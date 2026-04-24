@@ -1,21 +1,13 @@
-from game_constants import BLESSING_OF_ABUNDANCE
-import ascension
-import dig
-import shop
-from config import DEFAULT_ACTION_DELAY
-import prestige
-import ascension
-import generators
-import sell_potatoes
-from game_constants import *
-import time
 import sys
+import time
 import logging
 from trepudox_py_utils.logging import configure_logger
-import vision
-import bot_actions
-from config import RESOURCES_REGIONS
-from utils import extract_number
+from src.config import DEFAULT_ACTION_DELAY, RESOURCES_REGIONS
+from src.worker import ascension, dig, shop, prestige, generators, sell_potatoes
+from src.game_constants import *
+from src.utils import extract_number
+from src import vision
+from src import bot_actions
 
 
 configure_logger()

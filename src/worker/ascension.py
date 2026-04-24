@@ -1,8 +1,8 @@
-from game_constants import *
-from config import ASCENSION_REGIONS
-import bot_actions
-import vision
-from utils import extract_number
+from src.game_constants import *
+from src.config import ASCENSION_REGIONS
+from src import bot_actions
+from src import vision
+from src.utils import extract_number
 import logging
 
 

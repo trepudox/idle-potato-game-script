@@ -1,4 +1,4 @@
-import bot_actions
+from src import bot_actions
 import logging
 
 logger = logging.getLogger(__name__)
