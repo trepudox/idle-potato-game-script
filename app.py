@@ -96,6 +96,7 @@ def main_loop():
                     continue
 
                 prestige.try_buy_prestige_upgrades(resources_dict[CURRENT_PP], ascension_cost)
+                continue
 
             # 4. Tenta comprar geradores se vender batatas de ouro
             if golden_potatoes_sold:
