@@ -14,10 +14,14 @@ configure_logger()
 logger = logging.getLogger(__name__)
 
 
+# Prestige and Ascension flags
 PRESTIGE_THRESHOLD = 35
 TRY_PRESTIGE = True
 TRY_ASCENSION = True
 ASCENSION_BLESSING = BLESSING_OF_ABUNDANCE
+
+# Shop flags
+BUY_WITH_PRESTIGE_POINTS = True
 
 
 def check_resources():
@@ -97,7 +101,7 @@ def main_loop():
                 logger.info("Batatas de ouro nao foram vendidas, pulando compra de geradores")
 
             # 5. Tenta comprar intes do shop
-            shop.try_buy_shop_items()
+            shop.try_buy_shop_items(BUY_WITH_PRESTIGE_POINTS)
 
             # 6. Tenta escavar antes do sleep
             # Nao tem binding!!! o dig.py clica no botao pra começar a escavar

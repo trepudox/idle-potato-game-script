@@ -9,16 +9,17 @@ logger = logging.getLogger(__name__)
 # Controle de tempo (cooldown) da loja
 last_shop_visit = 0
 # SHOP_COOLDOWN_SECONDS = 240  # 4 minutos
-SHOP_COOLDOWN_SECONDS = 5  # 4 minutos
+SHOP_COOLDOWN_SECONDS = 5  # 5 segundos
 
 # Templates dos botões de compra disponíveis
 SHOP_TEMPLATES = [
-    'shop/buy-golden-potato.png',
-    'shop/buy-money.png',
-    'shop/buy-potato.png'
+    'shop/buy-with-cash.png',
+    'shop/buy-with-potato.png',
+    'shop/buy-with-golden-potato.png',
+    'shop/buy-with-prestige-points.png'
 ]
 
-def try_buy_shop_items():
+def try_buy_shop_items(buy_with_pp):
     global last_shop_visit
     bot_actions.press_key(TAB_BINDINGS[SHOP])
     
@@ -36,6 +37,9 @@ def try_buy_shop_items():
     
     # Procura e clica em todos os itens usando os 3 templates
     for template_path in SHOP_TEMPLATES:
+        if template_path == 'shop/buy-with-prestige-points.png' and not buy_with_pp:
+            continue
+
         # Procuramos por todas as ocorrências deste template na tela
         locations = vision.find_all_templates(template_path, threshold=0.9, min_distance=30)
         
