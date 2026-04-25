@@ -41,7 +41,7 @@ def try_buy_shop_items(buy_with_pp):
             continue
 
         # Procuramos por todas as ocorrências deste template na tela
-        locations = vision.find_all_templates(template_path, threshold=0.9, min_distance=30)
+        locations = vision.find_all_templates(template_path, threshold=0.95, min_distance=30)
         
         if locations:
             logger.info(f"Encontrados {len(locations)} itens do tipo '{template_path}'.")

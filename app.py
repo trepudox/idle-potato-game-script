@@ -14,13 +14,14 @@ configure_logger()
 logger = logging.getLogger(__name__)
 
 
-# Prestige and Ascension flags
-PRESTIGE_THRESHOLD = 35
-TRY_PRESTIGE = True
-TRY_ASCENSION = True
+# Prestige and Ascension vars
+PRESTIGE_THRESHOLD = 93
 ASCENSION_BLESSING = BLESSING_OF_ABUNDANCE
 
-# Shop flags
+# Conditional flags
+TRY_PRESTIGE = True
+TRY_ASCENSION = True
+BUY_NEW_GENERATORS = True
 BUY_WITH_PRESTIGE_POINTS = True
 
 
@@ -95,7 +96,7 @@ def main_loop():
                 continue
 
             # 4. Tenta comprar geradores se vender batatas de ouro
-            if golden_potatoes_sold:
+            if BUY_NEW_GENERATORS and (potatoes_sold or golden_potatoes_sold):
                 generators.try_buy_generator()
             else:
                 logger.info("Batatas de ouro nao foram vendidas, pulando compra de geradores")
