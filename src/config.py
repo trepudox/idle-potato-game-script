@@ -44,7 +44,7 @@ ASCENSION_REGIONS = {
 # Como a tela 'scrolla', nós achamos a imagem do ícone e usamos os offsets (X, Y) para ler o custo e clicar em comprar!
 PRESTIGE_UPGRADES_ANCHORS = {
     STARTER_SEEDLING: {
-        "template": "prestige/starter-seedling-upgrade-icon.png",
+        "template": "prestige/starter-seedlings-upgrade-icon.png",
         "cost_offset_x": 200,
         "cost_offset_y": 8,
         "cost_width": 125,

@@ -15,7 +15,7 @@ bot_actions.press_key(TAB_BINDINGS[PRESTIGE])
 
 print("Rolando a tela (-600 clicks) para encontrar os upgrades...")
 bot_actions.scroll_down(clicks=-600, delay=1.0)
-time.sleep(1)
+time.sleep(3)
 
 with mss.mss() as sct:
     for upgrade_name, config_data in PRESTIGE_UPGRADES_ANCHORS.items():

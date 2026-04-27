@@ -15,8 +15,8 @@ logger = logging.getLogger(__name__)
 
 
 # Prestige and Ascension vars
-PRESTIGE_THRESHOLD = 93
-ASCENSION_BLESSING = BLESSING_OF_ABUNDANCE
+PRESTIGE_THRESHOLD = 78
+ASCENSION_BLESSING = BLESSING_OF_THE_PRESTIGE
 
 # Conditional flags
 TRY_PRESTIGE_FLAG = True
