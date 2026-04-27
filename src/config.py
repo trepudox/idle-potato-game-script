@@ -12,7 +12,7 @@ if not os.path.exists(TEMPLATES_DIR):
 # Configurações de Visão Computacional (OpenCV)
 OPENCV_CONFIDENCE_THRESHOLD = 0.8  # Nível de confiança padrão (0 a 1) para encontrar imagens
 
-DEFAULT_ACTION_DELAY = 0.25         # Tempo de espera padrão entre ações
+DEFAULT_ACTION_DELAY = 0.2         # Tempo de espera padrão entre ações
 DEFAULT_CLICK_DURATION = 0.1        # Duração do "click" (mouse down/up)
 
 # Bounding Boxes para OCR
@@ -51,7 +51,7 @@ PRESTIGE_UPGRADES_ANCHORS = {
         "cost_height": 15,
         "buy_offset_x": 1110,
         "buy_offset_y": 0,
-        "max_cost": 2
+        "max_cost": 1
     },
     GENERATOR_BONUS: {
         "template": "prestige/generator-bonus-upgrade-icon.png",

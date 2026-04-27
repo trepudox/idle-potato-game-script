@@ -78,7 +78,7 @@ def try_buy_prestige_upgrades(current_pp, ascension_cost):
                     logger.info(f"O custo de {cost} é menor que o limite ({limite_gasto}) e temos PP ({current_pp}). COMPRANDO!")
                     buy_x = x + config_data["buy_offset_x"]
                     buy_y = y + config_data["buy_offset_y"]
-                    bot_actions.click_at(buy_x, buy_y, delay=0.5)
+                    bot_actions.click_at(buy_x, buy_y)
                     # Atualiza nosso current_pp para abater o custo
                     current_pp -= cost
                     time.sleep(DEFAULT_ACTION_DELAY) # Espera o jogo atualizar o texto de custo da próxima compra
