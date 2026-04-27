@@ -25,10 +25,7 @@ def get_ascension_cost():
     return cost
 
 
-def try_ascend(current_pp, try_ascension_flag, blessing_text):
-    if not try_ascension_flag:
-        return False
-        
+def try_ascend(current_pp, blessing_text):
     logger.info("Tentando abrir a aba de Ascensão...")
     bot_actions.press_key(TAB_BINDINGS[ASCENSION])
     

@@ -82,24 +82,25 @@ def main_loop():
             ascension_cost = ascension.get_ascension_cost()
 
             # 4. Tenta fazer prestige
-            prestiged = prestige.try_prestige(resources_dict[POTENTIAL_PP], TRY_PRESTIGE_FLAG, PRESTIGE_THRESHOLD)
+            if TRY_PRESTIGE_FLAG and resources_dict[POTENTIAL_PP] >= PRESTIGE_THRESHOLD:
+                prestiged = prestige.try_prestige()
             
-            # 5. Se prestiged, tenta fazer ascensão, se não, compra upgrades
-            if prestiged:
-                resources_dict = check_resources()
-                
-                if resources_dict[CURRENT_PP] >= ascension_cost:
-                    ascension.try_ascend(resources_dict[CURRENT_PP], TRY_ASCENSION_FLAG, ASCENSION_BLESSING)
-                    continue
+                # 5. Se prestiged, tenta fazer ascensão, se não, compra upgrades
+                if prestiged:
+                    resources_dict = check_resources()
+                    
+                    if TRY_ASCENSION_FLAG and resources_dict[CURRENT_PP] >= ascension_cost:
+                        ascension.try_ascend(resources_dict[CURRENT_PP], ASCENSION_BLESSING)
+                        continue
 
-                prestige.try_buy_prestige_upgrades(resources_dict[CURRENT_PP], ascension_cost)
-                continue
+                    prestige.try_buy_prestige_upgrades(resources_dict[CURRENT_PP], ascension_cost)
+                    continue
 
             # 4. Tenta comprar geradores se vender batatas de ouro
             if BUY_NEW_GENERATORS_FLAG and (potatoes_sold or golden_potatoes_sold):
                 generators.try_buy_generator()
             else:
-                logger.info("Batatas de ouro nao foram vendidas, pulando compra de geradores")
+                logger.info("Pulando compra de geradores")
 
             # 5. Tenta comprar intes do shop
             shop.try_buy_shop_items(BUY_WITH_PRESTIGE_POINTS_FLAG)

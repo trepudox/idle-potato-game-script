@@ -7,27 +7,19 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def try_prestige(potential_pp, try_prestige_flag, prestige_threshold):
-    if potential_pp >= prestige_threshold and try_prestige_flag:
-        bot_actions.press_key(TAB_BINDINGS[PRESTIGE])
-
-        logger.info(f"Opa! Potential PP acumulado ({potential_pp}) atingiu o threshold de {prestige_threshold} pontos.")
-        logger.info(f"Realizando prestígio com {potential_pp} PPs")
-        
-        # Clica no botão de prestígio inicial
-        clicked_prestige = bot_actions.click_template('prestige/prestige-now.png')
-        
-        if clicked_prestige:
-            # Pop-up de confirmação abriu, clica no botão "Are you sure?" ou similar
-            logger.info("Confirmando o Prestígio...")
-            bot_actions.click_template('prestige/do-prestige-button.png')
-            logger.info("Prestígio realizado com sucesso!")
-            return True
-        else:
-            logger.warning("Botão de prestígio não encontrado na tela, mesmo com Potential PP suficiente.")
-            return False
+def try_prestige():
+    bot_actions.press_key(TAB_BINDINGS[PRESTIGE])
+    logger.info(f"Realizando prestígio")
+    
+    clicked_prestige = bot_actions.click_template('prestige/prestige-now.png')
+    
+    if clicked_prestige:
+        logger.info("Confirmando o Prestígio...")
+        bot_actions.click_template('prestige/do-prestige-button.png')
+        logger.info("Prestígio realizado com sucesso!")
+        return True
     else:
-        logger.info(f"Potential PP atual: {potential_pp}. Faltam {prestige_threshold - potential_pp} para o prestígio.")
+        logger.warning("Botão de prestígio não encontrado na tela!!")
         return False
 
 
@@ -38,7 +30,6 @@ def try_buy_prestige_upgrades(current_pp, ascension_cost):
     logger.info("Verificando Upgrades de Prestígio (Fase 2 do Boss)...")
     bot_actions.press_key(TAB_BINDINGS[PRESTIGE])
     
-    # Desce um pouquinho a tela
     logger.info("Rolando a tela para procurar os upgrades...")
     bot_actions.scroll_down(clicks=-600, delay=1.0)
     
@@ -70,7 +61,6 @@ def try_buy_prestige_upgrades(current_pp, ascension_cost):
         limite_gasto = ascension_cost * 0.30
         
         while True:
-            # Lê o custo
             cost_text = vision.read_text_from_region(cost_region, preprocess=True)
             cost = extract_number(cost_text)
             logger.info(f"Custo lido do {upgrade_name}: {cost} (Cru: '{cost_text}')")

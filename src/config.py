@@ -43,6 +43,16 @@ ASCENSION_REGIONS = {
 # Configurações de Âncora Visual para a Fase 2 (Upgrades de Prestígio)
 # Como a tela 'scrolla', nós achamos a imagem do ícone e usamos os offsets (X, Y) para ler o custo e clicar em comprar!
 PRESTIGE_UPGRADES_ANCHORS = {
+    STARTER_SEEDLING: {
+        "template": "prestige/starter-seedling-upgrade-icon.png",
+        "cost_offset_x": 200,
+        "cost_offset_y": 8,
+        "cost_width": 125,
+        "cost_height": 15,
+        "buy_offset_x": 1110,
+        "buy_offset_y": 0,
+        "max_cost": 2
+    },
     GENERATOR_BONUS: {
         "template": "prestige/generator-bonus-upgrade-icon.png",
         # Onde a caixa do custo fica em relação ao ícone?
@@ -74,5 +84,15 @@ PRESTIGE_UPGRADES_ANCHORS = {
         "buy_offset_x": 1110,
         "buy_offset_y": 0,
         "max_cost": 80
-    }
+    },
+    GOLDEN_IRRIGATION: {
+        "template": "prestige/golden-irrigation-upgrade-icon.png",
+        "cost_offset_x": 248,
+        "cost_offset_y": 8,
+        "cost_width": 125,
+        "cost_height": 15,
+        "buy_offset_x": 1110,
+        "buy_offset_y": 0,
+        "max_cost": 30
+    },
 }
