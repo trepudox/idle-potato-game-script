@@ -1,9 +1,12 @@
 from src import bot_actions
 import logging
+import time
+
 
 logger = logging.getLogger(__name__)
 
-def try_dig():
+
+def try_dig(seconds_to_sleep):
     logger.info("Tentando acessar a aba de Dig...")
     
     # 1. Clica na aba de Dig (já que não tem atalho no teclado)
@@ -16,7 +19,8 @@ def try_dig():
         clicked_dig = bot_actions.click_template('dig/dig-button.png', threshold=0.95)
         
         if clicked_dig:
-            logger.info("Autodig ativado com sucesso!")
+            logger.info(f"Autodig ativado com sucesso! Esperando {seconds_to_sleep}s para continuar")
+            time.sleep(seconds_to_sleep)
         else:
             logger.warning("Botão de Autodig não encontrado na tela.")
     else:

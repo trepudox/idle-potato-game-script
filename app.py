@@ -14,9 +14,11 @@ configure_logger()
 logger = logging.getLogger(__name__)
 
 
+SECONDS_TO_WAIT_AFTER_DIGGING = 3
+
 # Prestige and Ascension vars
-PRESTIGE_THRESHOLD = 78
-ASCENSION_BLESSING = BLESSING_OF_THE_PRESTIGE
+PRESTIGE_THRESHOLD = 92
+ASCENSION_BLESSING = BLESSING_OF_THE_GOLDEN
 
 # Conditional flags
 TRY_PRESTIGE_FLAG = True
@@ -107,7 +109,7 @@ def main_loop():
 
             # 6. Tenta escavar antes do sleep
             # Nao tem binding!!! o dig.py clica no botao pra começar a escavar
-            dig.try_dig()
+            dig.try_dig(SECONDS_TO_WAIT_AFTER_DIGGING)
 
             # 7. Alterna para a próxima conta (Múltiplas instâncias)
             logger.info("Ciclo concluído nesta conta. Alternando para a próxima...")
