@@ -3,7 +3,7 @@ import pydirectinput
 import time
 import logging
 from src import vision
-from src.config import DEFAULT_ACTION_DELAY
+from src.config import DEFAULT_ACTION_DELAY, OPENCV_CONFIDENCE_THRESHOLD
 
 
 logger = logging.getLogger(__name__)
@@ -47,7 +47,7 @@ def click_at(x, y, delay=DEFAULT_ACTION_DELAY):
     time.sleep(delay)
 
 
-def click_template(template_name, threshold=0.8, delay=DEFAULT_ACTION_DELAY):
+def click_template(template_name, threshold=OPENCV_CONFIDENCE_THRESHOLD, delay=DEFAULT_ACTION_DELAY):
     """
     Procura uma imagem na tela e clica nela se encontrar.
     Retorna True se clicou, False se não encontrou.
