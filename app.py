@@ -19,8 +19,8 @@ TIME_TO_SLEEP_AFTER_GAME_REPAIR = 10
 TIME_TO_SLEEP_AFTER_DIGGING = 3
 
 # Prestige and Ascension vars
-PRESTIGE_THRESHOLD = 92
-ASCENSION_BLESSING = BLESSING_OF_THE_GOLDEN
+PRESTIGE_THRESHOLD = 38
+ASCENSION_BLESSING = BLESSING_OF_THE_PRESTIGE
 
 # Conditional flags
 TRY_PRESTIGE_FLAG = True
@@ -33,20 +33,20 @@ def check_resources():
     """Lê os valores principais da tela."""
     logger.info("Checando recursos atuais")
     
-    potatoes_text = vision.read_text_from_region(RESOURCES_REGIONS[POTATOES])
-    golden_potatoes_text = vision.read_text_from_region(RESOURCES_REGIONS[GOLDEN_POTATOES])
-    magic_potatoes_text = vision.read_text_from_region(RESOURCES_REGIONS[MAGIC_POTATOES])
-    cash_text = vision.read_text_from_region(RESOURCES_REGIONS[CASH])[1:]
+    # potatoes_text = vision.read_text_from_region(RESOURCES_REGIONS[POTATOES])
+    # golden_potatoes_text = vision.read_text_from_region(RESOURCES_REGIONS[GOLDEN_POTATOES])
+    # magic_potatoes_text = vision.read_text_from_region(RESOURCES_REGIONS[MAGIC_POTATOES])
+    # cash_text = vision.read_text_from_region(RESOURCES_REGIONS[CASH])[1:]
     current_pp_text = vision.read_text_from_region(RESOURCES_REGIONS[CURRENT_PP], preprocess=True)
     potential_pp_text = vision.read_text_from_region(RESOURCES_REGIONS[POTENTIAL_PP], preprocess=True)
 
     logger.info(f"current_pp_text: {current_pp_text}")
     logger.info(f"pontential_pp_text: {potential_pp_text}")
 
-    potatoes = extract_number(potatoes_text)
-    golden_potatoes = extract_number(golden_potatoes_text)
-    magic_potatoes = extract_number(magic_potatoes_text)
-    cash = extract_number(cash_text)
+    # potatoes = extract_number(potatoes_text)
+    # golden_potatoes = extract_number(golden_potatoes_text)
+    # magic_potatoes = extract_number(magic_potatoes_text)
+    # cash = extract_number(cash_text)
     current_pp = extract_number(current_pp_text)
     potential_pp = extract_number(potential_pp_text)
 
@@ -55,10 +55,10 @@ def check_resources():
     time.sleep(DEFAULT_ACTION_DELAY)
 
     return {
-        CASH: cash,
-        POTATOES: potatoes,
-        GOLDEN_POTATOES: golden_potatoes,
-        MAGIC_POTATOES: magic_potatoes,
+        # CASH: cash,
+        # POTATOES: potatoes,
+        # GOLDEN_POTATOES: golden_potatoes,
+        # MAGIC_POTATOES: magic_potatoes,
         CURRENT_PP: current_pp,
         POTENTIAL_PP: potential_pp,
     }
@@ -118,7 +118,7 @@ def main_loop():
 
             # 6. Tenta escavar antes do sleep
             # Nao tem binding!!! o dig.py clica no botao pra começar a escavar
-            dig.try_dig(TIME_TO_SLEEP_AFTER_DIGGING)
+            # dig.try_dig(SECONDS_TO_WAIT_AFTER_DIGGING)
 
             # 7. Alterna para a próxima conta (Múltiplas instâncias)
             logger.info("Ciclo concluído nesta conta. Alternando para a próxima...")
