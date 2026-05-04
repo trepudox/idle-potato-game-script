@@ -3,7 +3,7 @@ import pydirectinput
 import time
 import logging
 from src import vision
-from src.config import DEFAULT_ACTION_DELAY
+from src.config import DEFAULT_ACTION_DELAY, OPENCV_CONFIDENCE_THRESHOLD
 
 
 logger = logging.getLogger(__name__)
@@ -47,7 +47,7 @@ def click_at(x, y, delay=DEFAULT_ACTION_DELAY):
     time.sleep(delay)
 
 
-def click_template(template_name, threshold=0.8, delay=DEFAULT_ACTION_DELAY):
+def click_template(template_name, threshold=OPENCV_CONFIDENCE_THRESHOLD, delay=DEFAULT_ACTION_DELAY):
     """
     Procura uma imagem na tela e clica nela se encontrar.
     Retorna True se clicou, False se não encontrou.
@@ -93,7 +93,7 @@ def switch_instance():
     
     # Aciona a visão de tarefas do Windows
     pyautogui.hotkey('win', 'tab')
-    time.sleep(1.5)  # Tempo para a animação do Windows terminar e os ícones renderizarem
+    time.sleep(0.5)  # Tempo para a animação do Windows terminar e os ícones renderizarem
     
     # Encontra as miniaturas das janelas do jogo
     # Threshold um pouco menor pois miniaturas podem perder resolução
@@ -117,8 +117,8 @@ def switch_instance():
         pydirectinput.click()
         
         # Tempo pro jogo voltar a focar e a tela do Windows sumir
-        time.sleep(2.0)
+        time.sleep(0.5)
     else:
         logger.warning("Não encontrou outras janelas do jogo no Windows+Tab. Apertando Esc para sair do Tab.")
         pyautogui.press('esc')
-        time.sleep(1.0)
+        time.sleep(0.5)

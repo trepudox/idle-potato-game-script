@@ -8,13 +8,15 @@ from src.game_constants import *
 from src.utils import extract_number
 from src import vision
 from src import bot_actions
+from src import reliability
 
 
 configure_logger()
 logger = logging.getLogger(__name__)
 
 
-SECONDS_TO_WAIT_AFTER_DIGGING = 3
+TIME_TO_SLEEP_AFTER_GAME_REPAIR = 5
+TIME_TO_SLEEP_AFTER_DIGGING = 3
 
 # Prestige and Ascension vars
 PRESTIGE_THRESHOLD = 92
@@ -74,6 +76,13 @@ def main_loop():
                 logger.warning("Botão ESC segurado! Abortando o bot de emergência.")
                 break
 
+            # 0. Verifica se o bot precisa se reconectar ou se há algum popup na tela
+            game_was_repaired = reliability.check_game_state()
+            if game_was_repaired:
+                time.sleep(TIME_TO_SLEEP_AFTER_GAME_REPAIR)
+                bot_actions.switch_instance()
+                continue
+
             # 1. Tenta vender batatas
             potatoes_sold, golden_potatoes_sold = sell_potatoes.try_sell_potatoes()
 
@@ -109,7 +118,7 @@ def main_loop():
 
             # 6. Tenta escavar antes do sleep
             # Nao tem binding!!! o dig.py clica no botao pra começar a escavar
-            dig.try_dig(SECONDS_TO_WAIT_AFTER_DIGGING)
+            dig.try_dig(TIME_TO_SLEEP_AFTER_DIGGING)
 
             # 7. Alterna para a próxima conta (Múltiplas instâncias)
             logger.info("Ciclo concluído nesta conta. Alternando para a próxima...")
