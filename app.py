@@ -15,7 +15,7 @@ configure_logger()
 logger = logging.getLogger(__name__)
 
 
-TIME_TO_SLEEP_AFTER_GAME_REPAIR = 5
+TIME_TO_SLEEP_AFTER_GAME_REPAIR = 10
 TIME_TO_SLEEP_AFTER_DIGGING = 3
 
 # Prestige and Ascension vars
