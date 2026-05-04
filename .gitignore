@@ -1,0 +1,18 @@
+# Ignorar módulos Python instalados
+venv/
+.venv/
+env/
+
+# Ignorar arquivos de compilação Python
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Ignorar logs
+logs/
+*.log
+
+# Ignorar arquivos do sistema operacional
+.DS_Store
+Thumbs.db
