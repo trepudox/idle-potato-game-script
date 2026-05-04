@@ -93,7 +93,7 @@ def switch_instance():
     
     # Aciona a visão de tarefas do Windows
     pyautogui.hotkey('win', 'tab')
-    time.sleep(1.5)  # Tempo para a animação do Windows terminar e os ícones renderizarem
+    time.sleep(0.5)  # Tempo para a animação do Windows terminar e os ícones renderizarem
     
     # Encontra as miniaturas das janelas do jogo
     # Threshold um pouco menor pois miniaturas podem perder resolução
@@ -117,8 +117,8 @@ def switch_instance():
         pydirectinput.click()
         
         # Tempo pro jogo voltar a focar e a tela do Windows sumir
-        time.sleep(2.0)
+        time.sleep(0.5)
     else:
         logger.warning("Não encontrou outras janelas do jogo no Windows+Tab. Apertando Esc para sair do Tab.")
         pyautogui.press('esc')
-        time.sleep(1.0)
+        time.sleep(0.5)

@@ -22,8 +22,8 @@ RESOURCES_REGIONS = {
     GOLDEN_POTATOES: {"top": 144, "left": 1800, "width": 98, "height": 18},
     MAGIC_POTATOES: {"top": 170, "left": 1800, "width": 98, "height": 18},
     CASH: {"top": 196, "left": 1800, "width": 98, "height": 18},
-    CURRENT_PP: {"top": 467, "left": 1835, "width": 60, "height": 18},
-    POTENTIAL_PP: {"top": 493, "left": 1835, "width": 60, "height": 18},
+    CURRENT_PP: {"top": 546, "left": 1835, "width": 60, "height": 18},
+    POTENTIAL_PP: {"top": 572, "left": 1835, "width": 60, "height": 18},
 }
 
 SELL_POTATOES_REGIONS = {
