@@ -26,7 +26,7 @@ def check_game_state():
     for template in popup_templates:
         if vision.find_template(template, threshold=0.9):
             logger.info(f"Popup {template} encontrado. Fechando...")
-            bot_actions.click_template(template, threshold=0.9)
+            bot_actions.click_template("reliability/close-popup.png", threshold=0.95)
             game_was_repaired = True
             time.sleep(3)
     
