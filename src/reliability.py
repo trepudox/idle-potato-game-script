@@ -1,6 +1,5 @@
 import logging
-import bot_actions
-import vision
+from src import bot_actions, vision
 
 
 logger = logging.getLogger(__name__)
@@ -18,9 +17,9 @@ def check_game_state():
         game_was_repaired = True
 
     # 2. Verifica se o jogo está com algum popup
-    # if vision.find_template("reliability/popup-box.png"):
-    #     logger.info("Popup box encontrado. Fechando...")
-    #     bot_actions.click_template("reliability/popup-box.png")
-    #     game_was_repaired = True
+    if vision.find_template("reliability/popup-box.png"):
+        logger.info("Popup box encontrado. Fechando...")
+        bot_actions.click_template("reliability/popup-box.png")
+        game_was_repaired = True
     
     return game_was_repaired
