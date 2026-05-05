@@ -8,6 +8,7 @@ logger = logging.getLogger(__name__)
 
 popup_templates = [
     "reliability/welcome-back-popup.png",
+    "reliability/login-rewards-popup.png",
 ]
 
 def check_game_state():
@@ -16,9 +17,9 @@ def check_game_state():
     logger.info("Checando estado do jogo...")
 
     # 1. Verifica se é necessário se reconectar
-    if vision.find_template("reliability/reconnect-button.png"):
+    if vision.find_template("reliability/reconnect-button.png", threshold=0.9):
         logger.info("Reconnect button encontrado. Reconectando...")
-        bot_actions.click_template("reliability/reconnect-button.png")
+        bot_actions.click_template("reliability/reconnect-button.png", threshold=0.9)
         game_was_repaired = True
         time.sleep(3)
 
