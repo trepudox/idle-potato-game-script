@@ -27,6 +27,7 @@ TRY_PRESTIGE_FLAG = True
 TRY_ASCENSION_FLAG = True
 BUY_NEW_GENERATORS_FLAG = True
 BUY_WITH_PRESTIGE_POINTS_FLAG = True
+BUY_RELIC_MYSTERY_BOX_FLAG = True
 
 
 def check_resources():
@@ -114,7 +115,7 @@ def main_loop():
                 logger.info("Pulando compra de geradores")
 
             # 5. Tenta comprar intes do shop
-            shop.try_buy_shop_items(BUY_WITH_PRESTIGE_POINTS_FLAG)
+            shop.try_buy_shop_items(BUY_WITH_PRESTIGE_POINTS_FLAG, BUY_RELIC_MYSTERY_BOX_FLAG)
 
             # 6. Tenta escavar antes do sleep
             # Nao tem binding!!! o dig.py clica no botao pra começar a escavar

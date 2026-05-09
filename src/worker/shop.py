@@ -19,7 +19,7 @@ SHOP_TEMPLATES = [
     'shop/buy-with-prestige-points.png'
 ]
 
-def try_buy_shop_items(buy_with_pp):
+def try_buy_shop_items(buy_with_pp, buy_relic_mystery_box):
     global last_shop_visit
     bot_actions.press_key(TAB_BINDINGS[SHOP])
     
@@ -54,6 +54,20 @@ def try_buy_shop_items(buy_with_pp):
         logger.info(f"Total de {items_bought} itens comprados na loja desta vez.")
     else:
         logger.info("Nenhum item disponível para compra na loja agora.")
-        
+
+    if buy_relic_mystery_box:
+        try_to_buy_relic_mystery_box()
+ 
     # Atualiza o tempo da última visita, independentemente de ter comprado algo ou não
     last_shop_visit = time.time()
+
+
+def try_to_buy_relic_mystery_box():
+    location = vision.find_template('shop/relic-mystery-box.png', threshold=0.95)
+    
+    if location:
+        x, y = location
+        # A âncora é a caixa, mas o botão de compra fica 70 pixels para baixo
+        buy_y = y + 70
+        logger.info(f"Comprando relic mystery box em ({x}, {buy_y})")
+        bot_actions.click_at(x, buy_y)
