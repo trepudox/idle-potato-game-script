@@ -11,17 +11,23 @@ popup_templates = [
     "reliability/login-rewards-popup.png",
 ]
 
+reconnect_templates = [
+    "reliability/reconnect-button.png",
+    "reliability/retry-button.png",
+]
+
 def check_game_state():
     game_was_repaired = False
 
     logger.info("Checando estado do jogo...")
 
     # 1. Verifica se é necessário se reconectar
-    if vision.find_template("reliability/reconnect-button.png", threshold=0.9):
-        logger.info("Reconnect button encontrado. Reconectando...")
-        bot_actions.click_template("reliability/reconnect-button.png", threshold=0.9)
-        game_was_repaired = True
-        time.sleep(3)
+    for template in reconnect_templates:
+        if vision.find_template(template, threshold=0.9):
+            logger.info(f"Reconnect button {template} encontrado. Reconectando...")
+            bot_actions.click_template(template, threshold=0.9)
+            game_was_repaired = True
+            time.sleep(3)
 
     # 2. Verifica se o jogo está com algum popup
     for template in popup_templates:
