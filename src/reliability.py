@@ -27,7 +27,7 @@ def check_game_state():
             logger.info(f"Reconnect button {template} encontrado. Reconectando...")
             bot_actions.click_template(template, threshold=0.9)
             game_was_repaired = True
-            time.sleep(3)
+            time.sleep(10)
 
     # 2. Verifica se o jogo está com algum popup
     for template in popup_templates:
